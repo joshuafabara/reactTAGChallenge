@@ -7,6 +7,8 @@ const defaultValues = {
   email: ""
 };
 
+const isClearable = true;
+
 const subjects = [
   {value: 'math', label: 'Math'},
   {value: 'science', label: 'Science'},
@@ -143,9 +145,9 @@ const customStyles = {
 }
 
 function Form() {
-  const { register, watch, handleSubmit, formState, control, unregister} = useForm({
-    mode: "onChange"
-  });
+  // const { register, watch, handleSubmit, formState, control, unregister} = useForm({
+  //   mode: "onChange"
+  // });
 
   const subjectRef = useRef(null);
   const topicRef = useRef(null);
@@ -156,7 +158,9 @@ function Form() {
     console.log(data);
   }
 
-  const { isValid, isDirty } = formState;
+  // const { isValid, isDirty } = formState;
+  const [email, setEmail] = useState(null);
+  const [username, setUsername] = useState(null);
 
   const [selectedSubject, setSelectedSubject] = useState(null);
 
@@ -167,8 +171,6 @@ function Form() {
   const subjectPicked = (event) => {
     console.log('subject changed');
     console.log(event.value);
-    unregister('topic');
-    unregister('timeslot');
     setSelectedTopic(null);
     setSelectedTimeslot(null);
     subjectRef.current = event.value;
@@ -178,9 +180,6 @@ function Form() {
   const topicPicked = (event) => {
     console.log('topic changed');
     console.log(event.value);
-    console.log('formState.isValid', isValid);
-    console.log('isDirty', isDirty);
-    unregister('timeslot');
     setSelectedTimeslot(null);
     topicRef.current = event.value;
     setSelectedTopic(event.value);
@@ -195,83 +194,67 @@ function Form() {
   useEffect(() => {
     // Update the document title using the browser API
     console.log('unmounting');
-    if (subjectRef.current !== selectedSubject) {
-      setSelectedTopic(null);
-      setSelectedTimeslot(null);
-      topicRef.current = null;
-      timeSlotRef.current = null;
-    }
-    if (topicRef.current !== selectedTopic) {
-      setSelectedTimeslot(null);
-      timeSlotRef.current = null;
-    }
+    console.log('selectedSubject', selectedSubject);
+    console.log('selectedTopic', selectedTopic);
+    console.log('selectedTimeslot', selectedTimeslot);
+    // if (subjectRef.current !== selectedSubject) {
+    //   setSelectedTopic(null);
+    //   setSelectedTimeslot(null);
+    //   topicRef.current = null;
+    //   timeSlotRef.current = null;
+    // }
+    // if (topicRef.current !== selectedTopic) {
+    //   setSelectedTimeslot(null);
+    //   timeSlotRef.current = null;
+    // }
   });
 
   return (
     <div className="Form">
       Add Class
-      <form onSubmit={handleSubmit(addClass)} className="form">
+      <form onSubmit={addClass} className="form">
         <section>
           <label>Username:
-            <input defaultValue="" {...register("username", { required: true, pattern:/^[a-z0-9]+$/i })} />
-            {formState.errors.username?.type === 'required' && <span>This field is required</span>}
-            {formState.errors.username?.type === 'pattern' && <span>Username should be alphanumeric only</span>}
+            <input onChange={e => setUsername(e.target.value)} defaultValue={username} />
+            {/* {formState.errors.username?.type === 'required' && <span>This field is required</span>}
+            {formState.errors.username?.type === 'pattern' && <span>Username should be alphanumeric only</span>} */}
           </label>
           {/* <Controller name="username" render={({ field }) => <input {...field} />} /> */}
 
           <label>Email:
-            <input defaultValue="" {...register("email", { required: true, pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i })} />
-            {formState.errors.email?.type === 'required' && <span>This field is required</span>}
-            {formState.errors.email?.type === 'pattern' && <span>Invalid email</span>}
+            <input onChange={e => setEmail(e.target.value)} defaultValue={email} />
+            {/* {formState.errors.email?.type === 'required' && <span>This field is required</span>}
+            {formState.errors.email?.type === 'pattern' && <span>Invalid email</span>} */}
           </label>
         </section>
         <section>
           <label>Subject:
-            <Controller
-              name='subject'
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => <Select 
-                {...field} 
-                options={subjects} 
-                onChange={subjectPicked}
-              />}
+            <Select 
+              options={subjects} 
+              onChange={subjectPicked}
+              defaultValue = {selectedSubject}
             />
           </label>
         </section>
-        {selectedSubject && 
-          <section>
-            <label>Topic:
-              <Controller
-                name='topic'
-                control={control}
-                rules={{ required: true }}
-                render={({ field }) => <Select 
-                  {...field} 
-                  options={topics[selectedSubject]?.topics}
-                  onChange={topicPicked}
-                />}
-              />
-            </label>
-          </section>
-        }
-        {selectedTopic && 
-          <section>
-            <label>Timeslot:
-              <Controller
-                name="timeslot"
-                control={control}
-                rules={{ required: true }}
-                render={({ field }) => <Select 
-                  {...field} 
-                  options={timeslots[selectedTopic]?.timeslots}
-                  onChange={timeSlotPicked}
-                />}
-              />
-            </label>
-          </section>
-        }
-        <input disabled={!isValid || !isDirty} type="submit" value="Add Class"/>
+        <section>
+          <label>Topic:
+            <Select 
+              options={topics[selectedSubject]?.topics}
+              onChange={topicPicked}
+              defaultValue = {selectedTopic}
+            />
+          </label>
+        </section>
+        <section>
+          <label>Timeslot:
+            <Select 
+              options={timeslots[selectedTopic]?.timeslots}
+              onChange={timeSlotPicked}
+              defaultValue = {selectedTimeslot}
+            />
+          </label>
+        </section>
+        <input type="submit" value="Add Class"/>
       </form>
     </div>
   );
