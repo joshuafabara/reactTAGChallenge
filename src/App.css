@@ -41,30 +41,33 @@
 .Container {
   margin-top: 30px;
   margin-bottom: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 /* Form Styles */
 .form {
-  min-width: 350px;
+  max-width: 350px;
 }
 
 .form .form__text-inputs label {
   width: 100%;
-  display: block;
+  display: flex;
   text-align: left;
   margin-bottom: 15px;
+  flex-wrap: wrap;
+  font-size: 18px;
 }
 
 .form .form__text-inputs span {
-  min-width: 100px;
+  width: 100px;
   margin-right: 8px;
-  display: inline-block;
+  line-height: 2em;
 }
 
 .form .form__text-inputs input {
-  min-width: calc(100% - 116px);
-  display: inline-block;
-  min-height: 36px;
+  width: calc(100% - 116px);
+  height: 36px;
   line-height: 1.2em;
   font-size: 20px;
 }
@@ -72,6 +75,9 @@
 .inputs-hints {
   text-align: center;
   font-size: 14px;
+  width: 100%;
+  width: calc(100% - 116px);
+  margin-left: 108px;
 }
 
 .form__select {
@@ -87,9 +93,13 @@
   width: 100px;
   margin-right: 8px;
   text-align: left;
+  font-size: 20px;
+  line-height: 2em;
 }
+
 .form__select label span + div.select-wrapper {
   width: calc(100% - 107px);
+  font-size: 20px;
 }
 
 .submit-btn {
