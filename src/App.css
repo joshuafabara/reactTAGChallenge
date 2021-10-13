@@ -93,13 +93,13 @@
   width: 100px;
   margin-right: 8px;
   text-align: left;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 2em;
 }
 
 .form__select label span + div.select-wrapper {
   width: calc(100% - 107px);
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .submit-btn {
