@@ -36,3 +36,107 @@
     transform: rotate(360deg);
   }
 }
+
+/* Container styles */
+.Container {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+/* Form Styles */
+.form {
+  min-width: 350px;
+}
+
+.form .form__text-inputs label {
+  width: 100%;
+  display: block;
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.form .form__text-inputs span {
+  min-width: 100px;
+  margin-right: 8px;
+  display: inline-block;
+}
+
+.form .form__text-inputs input {
+  min-width: calc(100% - 116px);
+  display: inline-block;
+  min-height: 36px;
+  line-height: 1.2em;
+  font-size: 20px;
+}
+
+.inputs-hints {
+  text-align: center;
+  font-size: 14px;
+}
+
+.form__select {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.form__select label {
+  display: flex;
+}
+
+.form__select label span {
+  width: 100px;
+  margin-right: 8px;
+  text-align: left;
+}
+.form__select label span + div.select-wrapper {
+  width: calc(100% - 107px);
+}
+
+.submit-btn {
+  height: 36px;
+  border: 2px solid grey;
+  border-radius: 5px 5px;
+  width: 200px;
+  font-size: 22px;
+  margin-top: 10px;
+}
+
+input[type="submit"] {
+  cursor: pointer;
+}
+
+input:disabled {
+  cursor: not-allowed;
+}
+
+.schedule {
+  margin-top: 40px;
+  margin-bottom: 80px;
+}
+
+.schedule__header {
+  margin-bottom: 30px;
+}
+
+.schedule__head-data {
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+.data-label {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.schedule table {
+  width: 100%;
+}
+
+.schedule table, .schedule th, .schedule td {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+
+.schedule th, .schedule td {
+  background-color: #2596be;
+}

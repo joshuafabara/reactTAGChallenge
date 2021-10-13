@@ -236,66 +236,71 @@ function Form() {
   }
 
   return (
-    <div className="Form">
-      Add Class
+    <div className="form__wrapper">
+      <h1>Add Class</h1>
       <form onSubmit={addClass} className="form">
-        <section>
-          <label>Username:
+        <section className="form__text-inputs">
+          <label className="form__username"><span>Username</span>
             <input onBlur={usernameOnBlur} defaultValue={username} />
+            {(!validUsername) &&
+              <div className='inputs-hints'>
+                <small>(Username should be alphanumeric)</small>
+              </div>
+            }
           </label>
-          {/* <Controller name="username" render={({ field }) => <input {...field} />} /> */}
 
-          <label>Email:
+          <label className="form__email"><span>Email</span>
             <input onBlur={emailOnBlur} defaultValue={email} />
+            {(!validEmail) &&
+              <div className='inputs-hints'>
+                <small>(Enter a valid email)</small>
+              </div>
+            }
           </label>
-          {(!validUsername) &&
-            <div className='inputs-hints'>
-              <small>Username should be alphanumeric</small>
+        </section>
+        <section className="form__select form__subject-input">
+          <label><span>Subject</span>
+            <div className="select-wrapper">
+              <Select
+                styles={customStyles}
+                options={subjects}
+                defaultValue=""
+                menuColor='grey'
+                value={selectedSubject}
+                onChange={subjectPicked}
+              />
             </div>
-          }
-          {(!validEmail) &&
-            <div className='inputs-hints'>
-              <small>Enter a valid email</small>
+          </label>
+        </section>
+        <section className="form__select form__topic-input">
+          <label><span>Topic</span>
+            <div className="select-wrapper">
+              <Select
+                styles={customStyles}
+                options={topics[selectedSubject?.value]?.topics}
+                defaultValue=""
+                menuColor='grey'
+                value={selectedTopic}
+                onChange={topicPicked}
+              />
             </div>
-          }
-        </section>
-        <section>
-          <label>Subject:
-            <Select
-              styles={customStyles}
-              options={subjects}
-              defaultValue=""
-              menuColor='grey'
-              value={selectedSubject}
-              onChange={subjectPicked}
-            />
           </label>
         </section>
-        <section>
-          <label>Topic:
-            <Select
-              styles={customStyles}
-              options={topics[selectedSubject?.value]?.topics}
-              defaultValue=""
-              menuColor='grey'
-              value={selectedTopic}
-              onChange={topicPicked}
-            />
+        <section className="form__select form__timeslot-input">
+          <label><span>Timeslot</span>
+            <div className="select-wrapper">
+              <Select
+                styles={customStyles}  
+                options={timeslots[selectedTopic?.value]?.timeslots}
+                defaultValue=""
+                menuColor='grey'
+                value={selectedTimeslot}
+                onChange={timeSlotPicked}
+              />
+            </div>
           </label>
         </section>
-        <section>
-          <label>Timeslot:
-            <Select
-              styles={customStyles}  
-              options={timeslots[selectedTopic?.value]?.timeslots}
-              defaultValue=""
-              menuColor='grey'
-              value={selectedTimeslot}
-              onChange={timeSlotPicked}
-            />
-          </label>
-        </section>
-        <input disabled={(!validUsername || !validEmail || !selectedSubject || !selectedTopic || !selectedTimeslot)} type="submit" value="Add Class"/>
+        <input className="submit-btn" disabled={(!validUsername || !validEmail || !selectedSubject || !selectedTopic || !selectedTimeslot)} type="submit" value="Add Class"/>
       </form>
       {schedule.length > 0 &&
         <Schedule username={username} email={email} studentID={studentID} schedule={schedule} />
