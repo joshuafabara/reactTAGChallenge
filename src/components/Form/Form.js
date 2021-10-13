@@ -296,7 +296,6 @@ function Form() {
           </label>
         </section>
         <input disabled={(!validUsername || !validEmail || !selectedSubject || !selectedTopic || !selectedTimeslot)} type="submit" value="Add Class"/>
-        {/* <input disabled={(!isValid || !isDirty)} type="submit" value="Add Class"/> */}
       </form>
       {schedule.length > 0 &&
         <Schedule username={username} email={email} studentID={studentID} schedule={schedule} />
